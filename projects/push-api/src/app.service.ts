@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { SseService } from './sse/sse.service';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+
+  constructor(private sseService: SseService) {
+
+  }
+
+  push(data: string): string {
+    this.sseService.broadcast(data);
+    return 'success';
   }
 }
